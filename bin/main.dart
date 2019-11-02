@@ -94,31 +94,12 @@ bool areAllSubListOfEqualLength(List list) {
 }
 
 List<List> divideList(List initialList, int x) {
-  //lets take 7 elements list and split into 3 elements list
+  int len = initialList.length;
   List<List> finalList = [];
-  int finalListLength = initialList.length % x == 0
-      ? initialList.length ~/ x
-      : (initialList.length ~/ x) + 1; //7~/3=2 7%3=1  2+1=3
-  //length of final list will be 3. so lets create 3 empty list within final list
-  for (int i = 0; i < finalListLength; i++) {
-    finalList.add([]);
-  }
-  //now we have list of list with empty sub Lists
-  int subListNumber = 0;
-  int initialListElementNumber = 0;
-  while (subListNumber < (initialList.length ~/ x)) {
-    for (int i = 0; i < x; i++) {
-      finalList[subListNumber].add(initialList[initialListElementNumber]);
-      initialListElementNumber++;
-    }
-    subListNumber++;
-  }
-  int remainderElements = initialList.length % x;
-  if (remainderElements != 0) {
-    for (int i = initialListElementNumber; i < initialList.length; i++) {
-      finalList[subListNumber].add(initialList[initialListElementNumber]);
-      initialListElementNumber++;
-    }
+
+  for (var i = 0; i < len; i += x) {
+    int end = (i + x < len) ? i + x : len;
+    finalList.add(initialList.sublist(i, end));
   }
   return finalList;
 }
@@ -131,8 +112,4 @@ main() {
     [1, 1, 0, 0]
   ]));
   print(divideList([1, 2, 3, 4, 5, 6, 7, 8], 3));
-  List list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  pairs(list) =>
-      list.isEmpty ? list : ([list.take(2)]..addAll(pairs(list.skip(2))));
-  print(pairs(list));
 }
