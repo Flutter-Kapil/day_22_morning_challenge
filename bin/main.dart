@@ -35,7 +35,7 @@ List<List> minesweeper(List<List> board) {
   }
   for (int i = 0; i < board.length; i++) {
     for (int j = 0; j < board[i].length; j++) {
-      if (board[i][j] == 9) {
+      if (board[i][j] == 0) {
         nearby9(i, j, board);
       }
     }
@@ -45,29 +45,17 @@ List<List> minesweeper(List<List> board) {
 
 void nearby9(int i, int j, List<List> board) {
   try {
-    if (i - 1 != null && j - 1 != null && board[i - 1][j - 1] != 9) {
-      board[i - 1][j - 1] = board[i - 1][j - 1] + 1;
-    }
-    if (i - 1 != null && j != null && board[i - 1][j] != 9) {
-      board[i - 1][j] = board[i - 1][j] + 1;
-    }
-    if (i - 1 != null && j + 1 != null && board[i - 1][j + 1] != 9) {
-      board[i - 1][j + 1] = board[i - 1][j + 1] + 1;
-    }
-    if (i != null && j - 1 != null && board[i][j - 1] != 9) {
-      board[i][j - 1] = board[i][j - 1] + 1;
-    }
-    if (i != null && j + 1 != null && board[i][j + 1] != 9) {
-      board[i][j + 1] = board[i][j + 1] + 1;
-    }
-    if (i + 1 != null && j - 1 != null && board[i + 1][j - 1] != 9) {
-      board[i + 1][j - 1] = board[i + 1][j - 1] + 1;
-    }
-    if (i + 1 != null && j != null && board[i + 1][j] != 9) {
-      board[i + 1][j] = board[i][j] + 1;
-    }
-    if (i + 1 != null && j + 1 != null && board[i + 1][j + 1] != 9) {
-      board[i + 1][j + 1] = board[i + 1][j + 1] + 1;
+    for (int offsetX = -1; offsetX < 2; offsetX++) {
+      for (int offsetY = -1; offsetY < 2; offsetY++) {
+        if (i + offsetX < 0 ||
+            i + offsetX >= board[i].length ||
+            j + offsetY < 0 ||
+            j + offsetY >= board[i].length) {
+          //do nothing, basically skip those values
+        } else if (board[i + offsetX][j + offsetY] == 9) {
+          board[i][j] = board[i][j] + 1;
+        }
+      }
     }
   } catch (e) {
     print(e);
@@ -115,11 +103,11 @@ List<List> divideList(List initialList, int x) {
 }
 
 main() {
-//  print(minesweeper([
-//    [0, 1, 0, 0],
-//    [0, 0, 1, 0],
-//    [0, 1, 0, 1],
-//    [1, 1, 0, 0],
-//  ]));
-  print(divideList([1, 2, 3, 4, 5, 6], 3));
+  print(minesweeper([
+    [0, 1, 0, 0],
+    [0, 0, 1, 0],
+    [0, 1, 0, 1],
+    [1, 1, 0, 0],
+  ]));
+//  print(divideList([1, 2, 3, 4, 5, 6], 3));
 }
