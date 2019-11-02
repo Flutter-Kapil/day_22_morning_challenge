@@ -48,9 +48,10 @@ void nearby9(int i, int j, List<List> board) {
     for (int offsetX = -1; offsetX < 2; offsetX++) {
       for (int offsetY = -1; offsetY < 2; offsetY++) {
         if (i + offsetX < 0 ||
-            i + offsetX >= board[i].length ||
+//            i + offsetX >= board[i].length ||
+            i + offsetX >= board.length ||
             j + offsetY < 0 ||
-            j + offsetY >= board[i].length) {
+            j + offsetY >= board[i + offsetX].length) {
           //do nothing, basically skip those values
         } else if (board[i + offsetX][j + offsetY] == 9) {
           board[i][j] = board[i][j] + 1;
@@ -104,10 +105,10 @@ List<List> divideList(List initialList, int x) {
 
 main() {
   print(minesweeper([
-    [0, 1, 0, 0],
+    [0, 1, 0],
     [0, 0, 1, 0],
-    [0, 1, 0, 1],
-    [1, 1, 0, 0],
+    [0, 1, 0],
+    [1, 1, 0, 0]
   ]));
 //  print(divideList([1, 2, 3, 4, 5, 6], 3));
 }
