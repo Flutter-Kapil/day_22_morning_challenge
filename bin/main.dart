@@ -78,19 +78,15 @@ void nearby9(int i, int j, List<List> board) {
 //  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 4
 //  [[1, 4, 7, 10], [2, 5, 8, 11], [3, 6, 9]]
 /// "Leftover" arrays are okay.
-//List<List> SplitEvenly(List initialList, int splitInto) {
-//  List<List> finalList = divideList(initialList, splitInto);
-//  for (int i = splitInto; i > 1; i++) {
-//    List<List> x = divideList(initialList, splitInto);
-//    if(areAllSubListOfEqualLength(List aList)){
-//
-//    }
-//  }
-//  return finalList;
-//}
+List<List> splitEvenlyIfPossible(List initialList, int splitInto) {
+  int len = initialList.length;
 
-bool areAllSubListOfEqualLength(List list) {
-  return true;
+  for (int i = splitInto; i > 1; i--) {
+    if (len % i == 0) {
+      return divideList(initialList, i);
+    }
+  }
+  return divideList(initialList, splitInto);
 }
 
 List<List> divideList(List initialList, int x) {
@@ -111,5 +107,5 @@ main() {
     [0, 1, 0],
     [1, 1, 0, 0]
   ]));
-  print(divideList([1, 2, 3, 4, 5, 6, 7, 8], 3));
+  print(splitEvenlyIfPossible([1, 2, 3, 4, 5, 6, 7, 8], 3));
 }
